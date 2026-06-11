@@ -4,12 +4,29 @@ from screenscraper import ScreenScraper
 from scraper_service import fetch_media_for_rom, get_system_id
 
 
+SYSTEM_KEYWORDS = ["PSP", "PlayStation Portable"]
+
+ROM_FILE = "世界传说 光明神话3 汉化版.iso"
+SEARCH_TERM = "Radiant Mythology 3"
+
+MEDIA_ROOT = Path("media")
+
 
 if __name__ == "__main__":
     ss = ScreenScraper()
 
-    psp_id = get_system_id(ss, ["PSP", "PlayStation Portable"])
-    if psp_id is None:
-        raise RuntimeError("PSP system ID not found")
+    system_id = get_system_id(ss, SYSTEM_KEYWORDS)
 
-    print("PSP system ID =", psp_id)
+    if system_id is None:
+        raise RuntimeError(f"system not found: {SYSTEM_KEYWORDS}")
+
+    print("[SYSTEM]", SYSTEM_KEYWORDS, "=>", system_id)
+
+    fetch_media_for_rom(
+        ss,
+        rom_file=ROM_FILE,
+        search_term=SEARCH_TERM,
+        system_id=system_id,
+        media_root=MEDIA_ROOT,
+        skip_existing=True,
+    )

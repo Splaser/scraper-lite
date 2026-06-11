@@ -74,6 +74,30 @@ def search_games(
     return games
 
 
+def select_game_by_exact_name(games, target_name: str, system_id=None):
+    target_lower = target_name.lower()
+
+    for game in games:
+        # 系统过滤
+        system = game.get("systeme", {})
+        if system_id is not None and str(system.get("id")) != str(system_id):
+            continue
+
+        # 名字匹配
+        names = [n.get("text", "").lower() for n in game.get("noms", [])]
+        if any(target_lower in n for n in names):
+            return game
+
+    # fallback: 返回第一个匹配系统的
+    for game in games:
+        system = game.get("systeme", {})
+        if system_id is not None and str(system.get("id")) != str(system_id):
+            continue
+        return game
+
+    return None
+
+
 def select_first_game(
     games: list[dict],
     *,
@@ -167,10 +191,7 @@ def fetch_media_by_search(
 
     print_search_results(games)
 
-    game = select_first_game(
-        games,
-        system_id=system_id,
-    )
+    game = select_game_by_exact_name(games, term, system_id=system_id)
 
     if not game:
         print("[FAIL] no game selected")
