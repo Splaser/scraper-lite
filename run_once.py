@@ -4,10 +4,10 @@ from screenscraper import ScreenScraper
 from scraper_service import fetch_media_for_rom, get_system_id
 
 
-SYSTEM_KEYWORDS = ["PSP", "PlayStation Portable"]
+SYSTEM_KEYWORDS = ["DC", "Dreamcast"]
 
-ROM_FILE = "世界传说 光明神话3 汉化版.iso"
-SEARCH_TERM = "Radiant Mythology 3"
+ROM_FILE = "Sakura Taisen 3/Sakura Taisen 3 - Paris wa Moeteiru ka (CHSV3) (Disc 1).chd"
+SEARCH_TERM = "Sakura Taisen 3"
 
 MEDIA_ROOT = Path("media")
 

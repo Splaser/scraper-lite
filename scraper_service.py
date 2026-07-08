@@ -8,6 +8,11 @@ from downloader import download_picked_medias
 def media_folder_from_file(file_name: str) -> str:
     p = Path(file_name)
 
+    # 优先使用 ROM 所在目录作为媒体目录
+    if p.parent != Path("."):
+        return p.parent.name
+
+    # 没有目录时 fallback 使用文件名去扩展名
     if p.suffix:
         return p.stem
 
