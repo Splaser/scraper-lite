@@ -5,7 +5,6 @@ from scraper_service import fetch_media_for_rom, get_system_id
 
 
 SYSTEM_KEYWORDS = ["GBA", "Gameboy Advance"]
-
 ROM_FILE = "Tetris Worlds (USA).zip"
 SEARCH_TERM = "Tetris Worlds"
 
